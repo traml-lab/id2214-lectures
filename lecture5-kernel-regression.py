@@ -15,9 +15,8 @@ def rbf_kernel(a, b, lengthscale=1.0):
 def gram_matrix(A, B):
     return np.array([[rbf_kernel(a, b) for b in B] for a in A])
 
-lam = 0.1              # regularisation
 K = gram_matrix(X, X)  # N x N Gram matrix
-beta = np.linalg.solve(K + lam * np.eye(len(X)), y)
+beta = np.linalg.solve(K, y)
 
 X_star = (np.array([[3.0, 40.0]]) - X_mean) / X_std  # new input, same scaling
 k_star = gram_matrix(X_star, X)                      # M x N
